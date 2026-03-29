@@ -1,0 +1,443 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     18677,        435]
+NotebookOptionsPosition[     16802,        394]
+NotebookOutlinePosition[     17294,        412]
+CellTagsIndexPosition[     17251,        409]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[{
+ "PHGN 570: Computational Project 1\n",
+ StyleBox["Convolutions",
+  FontSize->24,
+  FontWeight->"Regular"]
+}], "Chapter",
+ CellChangeTimes->{{3.7552740620598*^9, 3.755274072243856*^9}, {
+  3.755274695714754*^9, 
+  3.75527469712357*^9}},ExpressionUUID->"48264375-2681-44fa-89ef-\
+d9e6f107159b"],
+
+Cell[CellGroupData[{
+
+Cell["Project Summary", "Section",
+ CellChangeTimes->{{3.755274163607428*^9, 
+  3.755274166357678*^9}},ExpressionUUID->"836bb4d4-c4d3-46fc-9bab-\
+898348d03f11"],
+
+Cell[TextData[{
+ "Convolutions are an inevitable part of measurements. A good understanding \
+of both the concept and working principles of convolutions is necessary for \
+all components of STEM.\n\nThe goal of this project is to investigate \
+convolutions and their algebraic properties. This project will be completed \
+both in theory and computationally using Matlab. ",
+ StyleBox["YOU MAY NOT USE MATLAB\[CloseCurlyQuote]s BUILT IN CONV FUNCTION",
+  FontWeight->"Bold"],
+ "."
+}], "Text",
+ CellChangeTimes->{{3.7552741528068542`*^9, 3.75527415801682*^9}, {
+  3.7552742810456867`*^9, 3.755274291135635*^9}, {3.755274408601207*^9, 
+  3.755274418462164*^9}, {3.755274487639176*^9, 3.7552745068734083`*^9}, {
+  3.755282155565679*^9, 3.75528222686957*^9}, {3.755282372829183*^9, 
+  3.7552823868703613`*^9}, {3.755283771377837*^9, 3.7552837714499607`*^9}, {
+  3.755286700300742*^9, 3.755286707074732*^9}, {3.943977721418336*^9, 
+  3.943977722878965*^9}},ExpressionUUID->"749fed14-e253-4514-aaac-\
+a82b678f4fdc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Deliverable", "Section",
+ CellChangeTimes->{{3.755282425706918*^9, 
+  3.7552824275818157`*^9}},ExpressionUUID->"ba070f3c-e3c8-4db5-9e6e-\
+446179b945df"],
+
+Cell[TextData[{
+ "The deliverable for this project is working code and documentation \
+articulating the results. The code must ",
+ StyleBox["VISUALLY",
+  FontWeight->"Bold"],
+ " demonstrate how convolutions work. Students must use Matlab to ",
+ StyleBox["computationally",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+ StyleBox[" ",
+  FontWeight->"Bold"],
+ "and",
+ StyleBox[" VISUALLY",
+  FontWeight->"Bold"],
+ " demonstrate the convolution between the following real-valued functions:\n\
+\n1. Rectangle (HeavisidePi, UnitBox)\n2. Isosceles triangle (UnitTriangle)\n\
+3. Right triangle\n4. Causally ",
+ StyleBox["decreasing",
+  FontSlant->"Italic"],
+ " exponential function\n\nThis requires 6 ",
+ StyleBox["animations",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+ ". ",
+ StyleBox["YOU MAY NOT USE MATLAB\[CloseCurlyQuote]s BUILT IN CONV FUNCTION \
+(or any variant thereof)",
+  FontWeight->"Bold"],
+ ". You MUST use loops to calculate all quantities displayed in the \
+animation.\n\nStudents have the freedom to choose how the animations are \
+presented. Because I will be running the code to make sure it works, students \
+may choose to simply provide detailed instructions on how to run the code in \
+order to produce each animation.\n\nAn example animation is included in the \
+next cell:"
+}], "Text",
+ CellChangeTimes->{{3.755282429783079*^9, 3.755282500456934*^9}, {
+  3.755282636655736*^9, 3.755282786784939*^9}, {3.7552830011006413`*^9, 
+  3.7552830052244883`*^9}, {3.755283221339746*^9, 3.755283222498693*^9}, {
+  3.755283280625964*^9, 3.75528333427464*^9}, {3.755283379194358*^9, 
+  3.755283639534164*^9}, {3.755283720875433*^9, 3.7552837491119757`*^9}, {
+  3.755283812849745*^9, 3.755283875915708*^9}, {3.755283929696662*^9, 
+  3.755284008097831*^9}, {3.7552846136606083`*^9, 3.7552846159527082`*^9}, {
+  3.755285121301711*^9, 3.755285122877103*^9}, {3.7552863971727533`*^9, 
+  3.7552864076890697`*^9}, {3.75528680200073*^9, 3.7552868025092688`*^9}, {
+  3.7552869628707447`*^9, 3.755286972008945*^9}, {3.943977473460537*^9, 
+  3.9439775137677526`*^9}, {3.943977641713669*^9, 
+  3.9439776562445087`*^9}},ExpressionUUID->"7ca191a5-36fb-4a6c-af05-\
+91966d879bb8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"rightTriRectGif", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+     "\"\<rightTri_rect.gif\>\""}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Manipulate", "[", 
+  RowBox[{
+   RowBox[{"Show", "[", 
+    RowBox[{
+     RowBox[{
+     "rightTriRectGif", "\[LeftDoubleBracket]", "i", 
+      "\[RightDoubleBracket]"}], ",", 
+     RowBox[{"ImageSize", "\[Rule]", "300"}]}], "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"i", ",", "1", ",", 
+     RowBox[{"Length", "[", "rightTriRectGif", "]"}], ",", "1"}], "}"}]}], 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.75528588367581*^9, 3.7552859158104877`*^9}, {
+   3.7552859672576427`*^9, 3.755286063570153*^9}, {3.7552861111863728`*^9, 
+   3.7552861246465607`*^9}, 3.7552861614160767`*^9, {3.7552862179732637`*^9, 
+   3.755286258242257*^9}, {3.755286322529354*^9, 3.755286340298469*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"d787749c-300c-4b97-a77b-2bafe2da1679"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`i$$ = 80, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`i$$], 1, 129, 1, ControlType -> Manipulator}}, 
+    Typeset`size$$ = {360., {71.37333984375, 78.25166015625}}, 
+    Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True, 
+    Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`i$$ = 1}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$, Typeset`keyframeActionsQ$$, 
+        Typeset`keyframeList$$}, "Body" :> Show[
+        Part[$CellContext`rightTriRectGif, $CellContext`i$$], ImageSize -> 
+        300], "Specifications" :> {{$CellContext`i$$, 1, 129, 1}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{
+      684.8639999999998, {105.22634765625072`, 112.10466796875072`}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{3.9470063125539074`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"e4c857c8-3dac-5842-a130-8270e54765e4"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Furthermore, students will ",
+ StyleBox["computationally",
+  FontWeight->"Bold",
+  FontSlant->"Italic"],
+ " demonstrate algebraic properties of convolutions including:\n\n1. \
+Commutativity: ",
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"f", "\[CircleTimes]", "g"}], "=", 
+   RowBox[{"g", "\[CircleTimes]", "f"}]}]],ExpressionUUID->
+  "5e2b5193-2379-4bac-9611-c5dd58728671"],
+ "\n2. Associativity: ",
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"f", "\[CircleTimes]", 
+    RowBox[{"(", 
+     RowBox[{"g", "\[CircleTimes]", "h"}], ")"}]}], "=", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{"f", "\[CircleTimes]", "g"}], ")"}], "\[CircleTimes]", "h"}]}]],
+  ExpressionUUID->"f7a0a259-0776-4a95-b8e7-01a770686b41"],
+ "\n3. Distributivity: ",
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"f", "\[CircleTimes]", 
+    RowBox[{"(", 
+     RowBox[{"g", "+", "h"}], ")"}]}], "=", 
+   RowBox[{
+    RowBox[{"f", "\[CircleTimes]", "g"}], "+", 
+    RowBox[{"f", "\[CircleTimes]", "h"}]}]}]],ExpressionUUID->
+  "4517c422-075f-4319-add3-ae8fa02820ff"],
+ "\n4. Multiplicative identity: ",
+ Cell[BoxData[
+  RowBox[{
+   RowBox[{"f", "\[CircleTimes]", "\[Delta]"}], "=", "f"}]],ExpressionUUID->
+  "726e1781-a1f8-4c85-93cd-5b6ba9c0fd6e"],
+ "\n\nThese can be demonstrated by calculating the RMS error between the left \
+and right hand side of each equation ",
+ StyleBox["EXCEPT",
+  FontWeight->"Bold"],
+ " for property 4. Students will demonstrate this property approximately \
+through an animation."
+}], "Text",
+ CellChangeTimes->{{3.755284626322426*^9, 3.755284679593439*^9}, {
+   3.755284835801292*^9, 3.755284869600712*^9}, {3.755286503686242*^9, 
+   3.755286507790449*^9}, 3.7552867771878843`*^9, {3.755286824115098*^9, 
+   3.7552868246938257`*^9}},ExpressionUUID->"d83d7194-7612-45a2-86c1-\
+c7f43faabe57"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Grading Rubric", "Section",
+ CellChangeTimes->{{3.755274836318931*^9, 3.755274837259777*^9}, {
+  3.755282553845039*^9, 
+  3.7552825546290617`*^9}},ExpressionUUID->"8cf0fac8-dc99-4231-a5e1-\
+6ee240f4c2db"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {Cell["PHGN570 Rubric",
+      FontWeight->Bold,ExpressionUUID->
+      "34dd2044-a437-480c-841c-396c2fb87ed9"], Cell["Far Exceeds Expectations",
+      FontWeight->Bold,ExpressionUUID->
+      "d52217a3-5507-453d-b1d4-7a69a96cdb71"], Cell["Exceeds Expectations",
+      FontWeight->Bold,ExpressionUUID->
+      "493a555b-a891-46bd-bdbe-5e2a5fd0eda0"], Cell["Meets Expectations",
+      FontWeight->Bold,ExpressionUUID->
+      "ce2cfaa5-3e47-4751-a351-4689ee6aab4e"], Cell[
+     "Partially Meets Expectations",
+      FontWeight->Bold,ExpressionUUID->
+      "b9a5fa7d-411b-4b90-b624-1a7d081f649b"], Cell[
+     "Does Not Meet Expectations",
+      FontWeight->Bold,ExpressionUUID->
+      "cab7bc29-a027-497d-ad98-add973b91be6"]},
+    {Cell[
+     "Grade Value",ExpressionUUID->"f1b9e21c-c769-493b-9054-a6611d010216"], 
+     Cell["[5]",ExpressionUUID->"6ea02b0b-12af-4894-992b-fa5583ff352e"], Cell[
+     "[4]",ExpressionUUID->"dd1496a0-91c0-43b3-b574-625bfab38ed7"], Cell[
+     "[3]",ExpressionUUID->"bb413e4d-21b6-4a31-bc0e-2de1879e07f8"], Cell[
+     "[2]",ExpressionUUID->"350ab2d5-eaae-4c7c-9b81-b8cca20d2657"], Cell[
+     "[1]",ExpressionUUID->"8c86b3ce-6298-4904-a851-827e0daa08e4"]},
+    {Cell[
+     "Support & Evidence",ExpressionUUID->
+      "11d12005-601c-4edc-8246-efa2232ce7cf"], Cell["\<\
+Calculation that visualizes the convolution between two real-valued \
+functions. Presentations may vary but superior execution entials:
+(1) Functions labeled with colors or styles
+(2) Convolution area dynamically displayed
+(3) Convolution dynamically displayed
+(4) Appropriate labels: axes, title, and legend
+(5) Title displays the name of the functions
+(6) Visually, clean and organized\
+\>",ExpressionUUID->"877f4d0c-a894-47c4-88ec-00ea813bf1fb"], Cell["\<\
+(1) Functions labeled with colors or styles
+(2) Convolution area dynamically displayed
+(3) Convolution dynamically displayed
+(4) Appropriate labels: axes, title, and legend
+(5) Visually, clean and organized\
+\>",ExpressionUUID->"81d6e0e6-963c-4731-9559-b84c789db047"], Cell["\<\
+(1) Functions labeled with colors or styles
+(2) Convolution dynamically displayed
+(3) Appropriate labels: axes, title, and legend
+(4) Visually, clean and organized\
+\>",ExpressionUUID->"1f77582a-16b5-42a6-a657-14cf27df0ecf"], Cell["\<\
+(1) Functions not labeled
+(2) Convolution not dynamically displayed
+(3) Appropriate labels missing\
+\>",ExpressionUUID->"88526d5d-f28f-46fb-9de4-097e9eda72fe"], Cell[
+     "Student handed in a smooth stone they found while on a walk",
+      ExpressionUUID->"c57592dc-35aa-412d-9270-d0c52f1a7be0"]},
+    {Cell[
+     "Organization",ExpressionUUID->"75b5c9df-f7c3-41b6-9c59-ed5725243381"], 
+     Cell["\<\
+Publication quality with well thought out ideas grouped into logical \
+sections. Code is organized with descriptive variable names, well commented, \
+and includes a header\
+\>",ExpressionUUID->"98bdb585-aa97-4cbf-85e7-aa3cd28ddc43"], Cell["\<\
+Graduate level quality with well thought out ideas group into logical \
+sections. Code is organized, well commented, and includes a header\
+\>",ExpressionUUID->"dcc47d3d-c3f2-4c52-8ab0-19e97afba006"], Cell["\<\
+Ideas are organized into blocks but not organized in a contiguous manner. \
+Code is organized, few comments, and does not include a header\
+\>",ExpressionUUID->"9b7a76aa-3b2b-42b3-b8be-6ecf2ee787e4"], Cell["\<\
+Ideas are scattered. Code not organized\[LongDash]spaghetti code. no \
+comments, no header, poor variable names\
+\>",ExpressionUUID->"771237da-95d5-4232-a5d5-01cba6fa473a"], Cell["\<\
+Student did not turn in working code. Student did not attempt to get help\
+\>",ExpressionUUID->"beff5a6e-8a9f-4428-bf50-a7ce69e3125e"]},
+    {Cell[
+     "Communication",ExpressionUUID->"4c63f4ee-5788-45ab-a37d-db82b30755c6"], 
+     Cell["\<\
+Uses expert level language and domain-specific vocabulary drawing on ideas \
+from resources including class material and text. Publication quality \
+grammar, punctuation, appearence, and citations. Student motivates arguments \
+with concise calculations that highlight key concepts.\
+\>",ExpressionUUID->"2d887154-fd29-4989-ab5f-dcf3c554d4db"], Cell["\<\
+Graduate level textual descriptions including sources and some mathematical \
+derivation. Student uses some domain-secific vocabulary and draws on ideas \
+from resources including class material and text. Appropriated grammar, \
+punctuation, and appearance\
+\>",ExpressionUUID->"e48f6701-8783-4553-9711-6af113deb3ca"], Cell["\<\
+Good textual descriptions with a few sources. Limited motivation for \
+conclusions with some grammar or punctuation mistakes.\
+\>",ExpressionUUID->"5455f9d0-cd37-44e4-a34a-00550f11d23f"], Cell["\<\
+Few descriptions and limited sources. No motivation for conclusion with \
+several grammar and punctuation mistakes\
+\>",ExpressionUUID->"ba5a50c5-8f11-41d9-975e-f19469172a6d"], Cell["\<\
+Poor writing, littered with grammatical mistakes. Student did not convey any \
+working knowledge of basic principles. Student did not attempt to get help.\
+\>",ExpressionUUID->"c7312e21-cba7-48da-a8b5-dc1818856b49"]}
+   },
+   AutoDelete->False,
+   BaseStyle->{LineIndent -> 0},
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxBackground->{"Columns" -> {
+       GrayLevel[0.5], None}, "Rows" -> {
+       GrayLevel[0.85], None}},
+   GridBoxFrame->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+   GridBoxItemStyle->{
+    "Columns" -> {{FontFamily -> "Helvetica"}}, "Rows" -> {{FontSize -> 6}}},
+   GridBoxSpacings->{"Columns" -> {{1}}, "Rows" -> {{0.5}}}],
+  "TextGrid"]], "Output",
+ CellChangeTimes->{
+  3.755287050153092*^9, 3.755287388465116*^9, {3.755287460291337*^9, 
+   3.755287487062937*^9}, {3.755287544400856*^9, 3.755287589657793*^9}, 
+   3.7552877151063643`*^9, {3.755287854132625*^9, 3.755287915365324*^9}, {
+   3.7552879522752*^9, 3.755287962181406*^9}, 3.755288066039172*^9, {
+   3.755288177850597*^9, 3.7552882507101097`*^9}, {3.755288298051691*^9, 
+   3.7552883117834272`*^9}, {3.755288387437071*^9, 3.755288433246499*^9}, {
+   3.7552885419687967`*^9, 3.755288583210826*^9}, {3.755288895357065*^9, 
+   3.7552888995873747`*^9}, 3.7552897733354263`*^9, 
+   3.755289810439787*^9},ExpressionUUID->"34f8ce85-76d7-4f69-ac1f-\
+a5b6bc210282"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Code Outline (pseudo-code)", "Section",
+ CellChangeTimes->{{3.755274445590074*^9, 
+  3.7552744559729652`*^9}},ExpressionUUID->"a999db28-361d-461a-aa5d-\
+7280f803b010"],
+
+Cell["\<\
+1. Define a grid
+2. Sample functions on grid
+3. Calculate, at each shift position (shift performed with circshift, \
+interpolation, or function resampling):
+\t3.1 function product
+\t3.2 integral of 3.1 (i.e., the convolution)
+\t3.3 record the shifted function
+4. Visualize the results of 3.1-3.3\
+\>", "Text",
+ CellChangeTimes->{{3.7552892047917*^9, 3.75528930458457*^9}, {
+  3.755289365374763*^9, 3.7552893903903217`*^9}, {3.755290236954488*^9, 
+  3.755290239781398*^9}, {3.943977759345046*^9, 
+  3.94397778039342*^9}},ExpressionUUID->"4cfae54c-def5-4e9f-8db0-\
+14bb97da0495"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.946757636995823*^9, 
+  3.9467576641333485`*^9}},ExpressionUUID->"58b2996c-432b-404b-a3cf-\
+4a33a726b2af"],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.9467576149534397`*^9, 
+  3.9467576214637127`*^9}},ExpressionUUID->"b4219be4-6204-4f43-95a8-\
+91ed7a8d3060"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{833.4, 568.8},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+Magnification:>1.2 Inherited,
+FrontEndVersion->"14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
+StyleDefinitions->FrontEnd`FileName[{"Utility"}, "Memo.nb", CharacterEncoding -> 
+  "UTF-8"],
+ExpressionUUID->"88ca7dc7-5677-48c6-82ab-b36bcb365af3"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 309, 9, 122, "Chapter",ExpressionUUID->"48264375-2681-44fa-89ef-d9e6f107159b"],
+Cell[CellGroupData[{
+Cell[914, 35, 160, 3, 64, "Section",ExpressionUUID->"836bb4d4-c4d3-46fc-9bab-898348d03f11"],
+Cell[1077, 40, 1008, 17, 151, "Text",ExpressionUUID->"749fed14-e253-4514-aaac-a82b678f4fdc"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2122, 62, 158, 3, 64, "Section",ExpressionUUID->"ba070f3c-e3c8-4db5-9e6e-446179b945df"],
+Cell[2283, 67, 2173, 46, 433, "Text",ExpressionUUID->"7ca191a5-36fb-4a6c-af05-91966d879bb8"],
+Cell[CellGroupData[{
+Cell[4481, 117, 993, 23, 79, "Input",ExpressionUUID->"d787749c-300c-4b97-a77b-2bafe2da1679"],
+Cell[5477, 142, 1848, 36, 237, "Output",ExpressionUUID->"e4c857c8-3dac-5842-a130-8270e54765e4"]
+}, Open  ]],
+Cell[7340, 181, 1785, 48, 271, "Text",ExpressionUUID->"d83d7194-7612-45a2-86c1-c7f43faabe57"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9162, 234, 210, 4, 64, "Section",ExpressionUUID->"8cf0fac8-dc99-4231-a5e1-6ee240f4c2db"],
+Cell[9375, 240, 6293, 116, 429, "Output",ExpressionUUID->"34f8ce85-76d7-4f69-ac1f-a5b6bc210282"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15705, 361, 173, 3, 64, "Section",ExpressionUUID->"a999db28-361d-461a-aa5d-7280f803b010"],
+Cell[15881, 366, 587, 14, 198, "Text",ExpressionUUID->"4cfae54c-def5-4e9f-8db0-14bb97da0495"],
+Cell[16471, 382, 154, 3, 33, "Input",ExpressionUUID->"58b2996c-432b-404b-a3cf-4a33a726b2af"],
+Cell[16628, 387, 146, 3, 34, "Text",ExpressionUUID->"b4219be4-6204-4f43-95a8-91ed7a8d3060"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
