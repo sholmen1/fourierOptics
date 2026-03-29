@@ -1,0 +1,48 @@
+function b = snfft2(a,dx, dy)
+
+[M,N]=size(a);
+V = dx*dy;
+b = V*ifftshift(fft2(fftshift(a)));
+
+end
+f = rightTri(x, w);
+
+N = 128;                  % Spatial step size (Δx)
+xMax = 200;              % Maximum x value
+dx= xMax / N;         % Number of spatial points (ensuring integer value)
+x = -xMax/2:dx:xMax/2-dx;  % Spatial grid
+
+yMax = 200;              % Maximum x value
+dy= yMax / N;         % Number of spatial points (ensuring integer value)
+y = -yMax/2:dy:yMax/2-dy;  % Spatial grid
+w = 100;  % Width of the right triangular function
+
+dfx = 1 / (N * dx);    % Frequency step size (Δf_x)
+f_xMax = 1 / (dx);   % Maximum frequency (from sampling theorem)
+M = floor(f_xMax / dfx); % Ensuring integer value for grid consistency
+fo = 0;
+fx = (-0.1*f_xMax/2:dfx:0.1*f_xMax/2-dfx)-fo; % Frequency grid
+
+dfy = 1 / (N * dy);    % Frequency step size (Δf_x)
+f_yMax = 1 / (dy);   % Maximum frequency (from sampling theorem)
+M2 = floor(f_yMax / dfy); % Ensuring integer value for grid consistency
+f1 = 0;
+fy = (-0.1*f_yMax/2:dfy:0.1*f_yMax/2-dfy)-f1; % Frequency grid
+
+F = snfft2(f, dx, dy);
+IF = sum(abs(F)^2).*(dfx).*dfy;
+If = sum(abs(f)^2).*dx.*dy;
+IF==If;
+
+function d = snifft2(c,dfx, dfy)
+
+[M,n]=size(c);
+V = N*N*dfx*dfy;
+d = V*ifftshift(ifft2(fftshift(c)));
+
+end
+
+F = snifft2(f, dx);
+IF2 = sum(abs(F)^2).*dfx.*dfy;
+If2 = sum(abs(f)^2).*dx.*dy;
+IF2==If2;

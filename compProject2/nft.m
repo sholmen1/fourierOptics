@@ -1,0 +1,85 @@
+clc; clear; close all;
+
+%% Parameters
+N = 128;                  % Spatial step size (Δx)
+xMax = 200;              % Maximum x value
+dx= xMax / N;         % Number of spatial points (ensuring integer value)
+x = -xMax/2:dx:xMax/2-dx;  % Spatial grid
+
+w = 100;  % Width of the right triangular function
+
+%% Define the function
+f = rightTri(x, w);
+plot(f)
+
+%% Fourier Transform Parameters
+dfx = 1 / (5*N * dx);    % Frequency step size (Δf_x) Zooms unrelated pixels in fourier space + real space
+f_xMax = 1 / (dx);   % Maximum frequency (from sampling theorem)
+M = floor(f_xMax / dfx); % Ensuring integer value for grid consistency
+fo = 0;
+fx = (-0.1*f_xMax/2:dfx:0.1*f_xMax/2-dfx)-fo; % Frequency grid
+
+%% Compute Discrete Fourier Transform Numerically
+Ffx = zeros(size(fx)); % Initialize Fourier Transform array
+
+for m = 1:length(fx)
+    Ffx(m) = sum(f .* exp(-2j * pi * fx(m) * x) * dx);
+end
+
+%% Plot Results
+figure;
+
+% Original Function
+subplot(1,2,1);
+plot(x, real(f), 'b', 'LineWidth', 2); hold on;
+plot(x, imag(f), 'r--', 'LineWidth', 2);
+xlabel('x [\mum]'); ylabel('Amplitude');
+title('Input Fcn. - f(x)');
+legend('Real', 'Imag');
+grid on;
+
+% Fourier Transform
+subplot(1,2,2);
+plot(fx, real(Ffx), 'b', 'LineWidth', 2); hold on;
+plot(fx, imag(Ffx), 'r--', 'LineWidth', 2);
+xlabel('f_x [\mum^{-1}]'); ylabel('Amplitude');
+title('$\tilde{F}(f_x)$ Fourier Transform', 'Interpreter', 'latex');
+legend('Real', 'Imag');
+grid on;
+
+%% 
+%Questions:
+
+%Answer the following questions about this form of the Fourier transform:
+
+%1) What are the advantages of calculating the Fourier transform in this way?
+
+% We can calculate the Fourier transform at any arbitary frequency, not just at fixed intervals as in the FFT.
+% This is powerful, and we can adjust the grid, and zoom by increasing
+% pixels in Fourier Space
+
+%2) Disadvantages
+% Thhis might be slower than the FFT where it's
+% a built in function. Creating the frequency grid yourself might cause problems to occur
+%
+
+%3) What happens when fxmax>1/deltax? ie fxmax=2/deltax
+%When this condition occurs, the Fourier transform starts to exhibit
+%aliasing. Lecture 1 or 2 slides??
+% This is a result of the Nyquist limit that says the maximum frequency that can 
+% be represented accurately is fxmax=2/deltax
+%A function can only be reconstructed accurately if sampled at a frequency twice 
+% the highest frequency present in the frequency. If this condition is violated,
+% high-frequency components are misinterpreted as lower frequencies due to wrapping
+% (aliasing). 
+
+%4) Is power always conserved Parseval for this transform? 
+%Talked to Nghia about this, and consulted CHATGPT.
+%Power is not always conserved in this method. 
+% Paraseval's Theorem states that the total power in the spatial domain 
+% equals the total power in the frequency domain. 
+% However, when we use the summation method, if the frequency grid does 
+% not match the full range of frequencies in the function, 
+% some power will be "lost" because it's not captured in the transform. 
+% UNDERSAMPLED = PROBLEM
+
