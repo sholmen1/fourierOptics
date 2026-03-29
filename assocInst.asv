@@ -1,0 +1,21 @@
+%2. Associativity: f(gh)=(fg)h
+
+
+function [assoc] = assocInst()
+
+% Functions being convolved: g = rect, h = isoTri, f = cdexp
+[x, Fgh] = DA(@rect, @isoTri, 1, 128, 2);
+%CHATGPT recommended gridded interpolant
+Fgh_interp = griddedInterpolant(x, Fgh, 'linear', 'none'); % Create an interpolating function
+[~, Fgh_Result] = DA(@cdexp, @(x_val) Fghinterp1(x, Fgh, x_val, "linear", 0), 1, 128, 2);
+
+
+[x, fgH] = DA(@cdexp, @rect, 1, 128, 2);
+
+[~, fgH_Result] = DA(@(x_val) interp1(x, fgH, x_val, "linear", 0), @isoTri, 1, 128, 2);
+
+%rmse calc
+
+assoc = sqrt(mean((Fgh_Result-fgH_Result).^2));
+
+end
